@@ -18,4 +18,13 @@
 			where id = #{id}
 		]]>
 	</select>
+	
+	<!-- 수정 -->
+	<update id="update" parameterType="com.javaex.vo.BlogVo">
+		UPDATE blog
+		SET
+			BLOGTITLE = #{blogTitle},
+			LOGOFILE = #{logoFile}
+		WHERE ID = #{id}
+	</update>
 </mapper>

@@ -33,4 +33,12 @@ public class BlogDao {
 		return blogVo;
 	}
 
+	//업데이트
+	public void update(BlogVo blogVo) {
+		System.out.println("BlogDao.update()");
+		
+		session.update("blog.update",blogVo);
+		
+	}
+
 }
