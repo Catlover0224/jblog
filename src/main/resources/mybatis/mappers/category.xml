@@ -6,4 +6,20 @@
 		INSERT INTO category (CATENO, ID, CATENAME, DESCRIPTION, REGDATE)
 		VALUES (seq_category_no.NEXTVAL, #{id}, '미분류', '기본으로 만들어지는 카테고리 입니다.', SYSDATE)
 	</insert>
+	<!-- 리스트 작성 -->
+	<select id="getCate" parameterType="String" resultType="com.javaex.vo.CategoryVo">
+		<![CDATA[
+			select 
+				CATENO cateNo,
+				CATENAME cateName,
+				DESCRIPTION description
+			from category
+			where id= #{id}
+			order by REGDATE DESC
+		]]>
+	</select>
+	<insert id="insert" parameterType="com.javaex.vo.CategoryVo">
+		INSERT INTO category (CATENO, ID, CATENAME, DESCRIPTION, REGDATE)
+		VALUES (seq_category_no.NEXTVAL, #{id}, '미분류', '기본으로 만들어지는 카테고리 입니다.', SYSDATE)
+	</insert>
 </mapper>
