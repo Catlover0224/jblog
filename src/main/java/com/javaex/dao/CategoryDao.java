@@ -21,13 +21,29 @@ public class CategoryDao {
 		
 	}
 
-	public List<CategoryVo> getCate(String id) {
+	public List<CategoryVo> getCateList(String id) {
 		System.out.println("CategoryService.getCate()");
 		
-		List<CategoryVo> cateList = session.selectList("category.getCate",id);
+		List<CategoryVo> cateList = session.selectList("category.getCateList",id);
 		System.out.println(cateList);
 		
 		return cateList;
+	}
+
+	public void categoryInsert(CategoryVo categoryVo) {
+		System.out.println("CategoryService.categoryInsert()");
+		
+		session.insert("category.insert",categoryVo);
+		
+	}
+
+	public int getCateNo(String id) {
+		System.out.println("CategoryService.getCateNo()");
+		
+		int no =session.selectOne("category.getCateNo", id);
+		System.out.println(no);
+		
+		return no;
 	}
 
 }

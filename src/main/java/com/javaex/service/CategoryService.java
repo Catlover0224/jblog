@@ -21,12 +21,23 @@ public class CategoryService {
 		categoryDao.createcategory(id);
 	}
 
-	public List<CategoryVo> getCate(String id) {
+	//카테고리 리스트 출력
+	public List<CategoryVo> getCateList(String id) {
 		System.out.println("CategoryService.getCate()");
 		
-		List<CategoryVo> cateList =categoryDao.getCate(id);
+		List<CategoryVo> cateList =categoryDao.getCateList(id);
 		
 		return cateList;
+	}
+
+	//카테고리 등록
+	public int categoryInsert(CategoryVo categoryVo) {
+		System.out.println("CategoryService.categoryInsert()");
+		
+		categoryDao.categoryInsert(categoryVo);
+		int no =categoryDao.getCateNo(categoryVo.getId());
+		
+		return no;
 	}
 
 }
