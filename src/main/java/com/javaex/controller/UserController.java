@@ -41,11 +41,10 @@ public class UserController {
 		System.out.println("UesrController.login()");
 
 		UserVo user = userService.login(vo);
-		System.out.println(user);
-
-		session.setAttribute("user", user);
 		if (user != null) {
+			session.setAttribute("user", user);
 			System.out.println("로그인성공");
+			System.out.println(user);
 			return "redirect:/";
 		} else {
 			System.out.println("로그인실패");
