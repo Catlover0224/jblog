@@ -6,4 +6,16 @@
 		INSERT INTO blog (ID, BLOGTITLE, LOGOFILE)
 		VALUES (#{id},#{BLOGTITLE},'spring-logo.jpg')
 	</insert>
+	
+	<!--블로그 가져오기 -->
+	<select id="getBlog" parameterType="String" resultType="com.javaex.vo.BlogVo">
+		<![CDATA[
+			select 
+				ID,
+				BLOGTITLE,
+				LOGOFILE
+			from blog
+			where id = #{id}
+		]]>
+	</select>
 </mapper>

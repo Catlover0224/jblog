@@ -24,9 +24,13 @@ public class BlogDao {
 	}
 
 	//블로그 가져오기
-	public BlogVo getBlog() {
-		// TODO Auto-generated method stub
-		return null;
+	public BlogVo getBlog(String id) {
+		System.out.println("BlogDao.getBlog()");
+		
+		BlogVo blogVo = session.selectOne("blog.getBlog",id);
+		System.out.println(blogVo);
+		
+		return blogVo;
 	}
 
 }

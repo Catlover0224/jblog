@@ -2,7 +2,7 @@ package com.javaex.vo;
 
 public class BlogVo {
 	//필드
-	private int id;
+	private String id;
 	private String blogTitle;
 	private String logoFile;
 	
@@ -11,18 +11,18 @@ public class BlogVo {
 		super();
 	}
 	
-	public BlogVo(int id, String blogTitle, String logoFile) {
+	public BlogVo(String id, String blogTitle, String logoFile) {
 		super();
 		this.id = id;
 		this.blogTitle = blogTitle;
 		this.logoFile = logoFile;
 	}
 	//게터세터
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

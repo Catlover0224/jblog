@@ -30,12 +30,12 @@ public class BlogService {
 
 	//블로그 가져오기
 	public BlogVo getBlog(String id) {
-		System.out.println("BlogService.createBlog()");
+		System.out.println("BlogService.getBlog()");
 		System.out.println("BlogService.id : "+id);
 		
-		BlogVo blogVo = blogDao.getBlog();
+		BlogVo blogVo = blogDao.getBlog(id);
 		
-		return null;
+		return blogVo;
 	}
 
 }
