@@ -44,7 +44,7 @@
 		<property name="defaultEncoding" value="utf-8" />
 
 	</bean>
-	<!-- url매핑 -->
-	<mvc:resources mapping="/images/**" location="file:C:/javaStudy/workspace/jblog/src/main/webapp/assets/images" />
+	<!-- url매핑-->
+	<mvc:resources mapping="/upload/**" location="file:C:/javaStudy/upload/" />
 
 </beans>

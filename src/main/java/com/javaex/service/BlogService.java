@@ -17,7 +17,7 @@ import com.javaex.vo.BlogVo;
 
 @Service
 public class BlogService {
-	String saveDir = "C:\\javaStudy\\workspace\\jblog\\src\\main\\webapp\\assets\\images";
+	String saveDir = "C:\\javaStudy\\upload";
 
 	@Autowired
 	private BlogDao blogDao;
