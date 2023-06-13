@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.BlogService;
 import com.javaex.service.CategoryService;
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
+import com.javaex.vo.JsonResult;
 import com.javaex.vo.UserVo;
 
 @Controller
@@ -59,11 +61,29 @@ public class BlogController {
 		
 		BlogVo blogVo = blogService.getBlog(id);
 		model.addAttribute("blog", blogVo);
-		List<CategoryVo> cateList = categoryService.getCate(id);
+		List<CategoryVo> cateList = categoryService.getCateList(id);
 		
 		model.addAttribute("cate",cateList);
 		
 		return "/blog/admin/blog-admin-cate";
+	}
+	
+	//카테고리 등록
+	@ResponseBody
+	@RequestMapping(value = "/blog/{id}/admin/categoryInsert", method = {RequestMethod.GET,RequestMethod.POST})
+	public CategoryVo categoryInsert(@PathVariable("id") String id,
+									@RequestParam("cateName") String cateName,
+									@RequestParam("description") String description) {
+		System.out.println("BlogController.categoryInsert()");
+		System.out.println(cateName);
+		System.out.println(description);
+		
+		CategoryVo categoryVo =new CategoryVo(0, id, cateName, description, null);
+		int no =categoryService.categoryInsert(categoryVo);
+		categoryVo.setCateNo(no);
+		System.out.println(categoryVo);
+		
+		return categoryVo;
 	}
 	
 	//블로그 수정
