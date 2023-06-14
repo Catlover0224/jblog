@@ -9,13 +9,18 @@
 	<!-- 리스트 작성 -->
 	<select id="getCateList" parameterType="String" resultType="com.javaex.vo.CategoryVo">
 		<![CDATA[
+		select 
+				ROWNUM cateNo,
+				CATENAME cateName,
+				DESCRIPTION description
+			from(
 			select 
-				CATENO cateNo,
+				ROWNUM cateNo,
 				CATENAME cateName,
 				DESCRIPTION description
 			from category
 			where id= #{id}
-			order by REGDATE DESC
+			order by REGDATE DESC)
 		]]>
 	</select>
 	<!-- 리스트 작성 -->
@@ -26,10 +31,9 @@
 	<!-- 번호찾기 -->
 	<select id="getCateNo" parameterType="String" resultType="int">
 		<![CDATA[
-			SELECT CATENO cateNo
+			SELECT COUNT(*) as cateNo
 			FROM category
-			WHERE ROWNUM = 1 and id = #{id}
-			ORDER BY cateNo DESC;
+			WHERE id = #{id}
 		]]>
 	</select>
 </mapper>
