@@ -7,14 +7,14 @@ public class PostVo {
 	private int cateNo;
 	private String postTitle;
 	private String postContent;
-	private Date regDate;
+	private String regDate;
 
 	// 생성자, getter 및 setter 메서드 등 필요한 코드를 추가할 수 있습니다.
 	public PostVo() {
 		super();
 	}
 
-	public PostVo(int postNo, int cateNo, String postTitle, String postContent, Date regDate) {
+	public PostVo(int postNo, int cateNo, String postTitle, String postContent, String regDate) {
 		super();
 		this.postNo = postNo;
 		this.cateNo = cateNo;
@@ -56,11 +56,11 @@ public class PostVo {
 		this.postContent = postContent;
 	}
 
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 

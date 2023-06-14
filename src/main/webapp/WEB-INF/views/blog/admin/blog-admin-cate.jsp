@@ -19,7 +19,7 @@
 			<ul id="admin-menu" class="clearfix">
 				<li class="tabbtn"><a href="${pageContext.request.contextPath}/blog/${blog.id}/admin/basic">기본설정</a></li>
 				<li class="tabbtn selected"><a href="${pageContext.request.contextPath}/blog/${blog.id}/admin/category">카테고리</a></li>
-				<li class="tabbtn"><a href="">글작성</a></li>
+				<li class="tabbtn"><a href="${pageContext.request.contextPath}/blog/${blog.id}/admin/writeForm">글작성</a></li>
 			</ul>
 			<!-- //admin-menu -->
 
@@ -43,25 +43,18 @@
 						</tr>
 					</thead>
 					<tbody id="cateList">
-						<!-- 리스트 영역 -->
-						<c:forEach var="cate" items="${cate}">
-							<tr>
-								<td>${cate.cateNo}</td>
-								<td>${cate.cateName}</td>
-								<td>7</td>
-								<td>${cate.description}</td>
-								<td class='text-center'><img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-							</tr>
+					<!-- 리스트 영역 -->
+						<c:forEach var="cate" items="${cate}" varStatus="loop">
+						    <tr>
+						        <td>${loop.index + 1}</td>
+						        <input type="hidden" name="cateNo" value="${cate.cateNo}" />
+						        <td>${cate.cateName}</td>
+						        <td>7</td>
+						        <td>${cate.description}</td>
+						        <td class='text-center'><img class="btnCateDel" data-cateNo="${cate.cateNo}" src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
+						    </tr>
 						</c:forEach>
 						<!-- 리스트 영역 -->
-						<!-- 새로운 카테고리 -->
-						<tr id="newCategoryRow" style="display: none;">
-							<td></td>
-							<td id="newCategoryName"></td>
-							<td>7</td>
-							<td id="newCategoryDesc"></td>
-							<td class='text-center'><img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-						</tr>
 					</tbody>
 				</table>
 
@@ -99,60 +92,75 @@
 	<!-- //wrap -->
 </body>
 
+<!-- 	//카테고리 삭제 -->
 <script type="text/javascript">
-	//아이디 체크 버튼 클릭했을때
-	$("#btnAddCate").on(
-			"click",
-			function() {
-				console.log("버튼 클릭");
+    $(".btnCateDel").on("click", function() {
+        console.log("삭제 클릭");
 
-				//추출
-				var cateName = $("[name=name]").val();
-				var description = $("[name=desc]").val();
-				var id = $("#blogId").val()
+        //추출
+        var cateNo = $(this).data("cateno");
+        console.log(cateNo);
 
-				console.log(cateName);
-				console.log(description);
-				console.log(id);
+    });
+</script>
 
-				//통신 id
-				$.ajax({
-					url : "${pageContext.request.contextPath}/blog/" + id + "/admin/categoryInsert",
-					type : "post",
+<!-- 	//카테고리 작성 -->
+<script type="text/javascript">
+$("#btnAddCate").on("click", function() {
+    console.log("버튼 클릭");
 
-					data : {
-						cateName : cateName,
-						description : description
-					},
+    // 추출
+    var cateName = $("[name=name]").val();
+    var description = $("[name=desc]").val();
+    var id = $("#blogId").val();
 
-					dataType : "json",
-					success : function(categoryVo) {
-						// 새로운 카테고리 정보 추출
-						var newCateNo = categoryVo.cateNo;
-						var newCateName = categoryVo.cateName;
-						var newCateDesc = categoryVo.description;
-						console.log("김냐옹냐옹");
-						console.log(newCateNo);
-						console.log(newCateName);
-						console.log(newCateDesc);
+    console.log(cateName);
+    console.log(description);
+    console.log(id);
 
-						// 새로운 카테고리 출력
-						var newCategoryRow = $("#newCategoryRow").clone();
-						newCategoryRow.removeAttr("id");
-						newCategoryRow.removeAttr("style");
-						newCategoryRow.find("td").eq(0).text(newCateNo);
-						newCategoryRow.find("td").eq(1).text(newCateName);
-						newCategoryRow.find("td").eq(3).text(newCateDesc);
+    // 통신 id
+    $.ajax({
+        url: "${pageContext.request.contextPath}/blog/" + id + "/admin/categoryInsert",
+        type: "post",
+        data: {
+            cateName: cateName,
+            description: description
+        },
+        dataType: "json",
+        success: function(categoryVo) {
+        	var cateNo = categoryVo.cateNo;
+        	var cateName = categoryVo.cateName;
+        	var description = categoryVo.description;
+        	
+        	 var rowCount = $("#cateList tr").length+1;
 
-						$("#cateList").append(newCategoryRow);
+        	var str = "<tr>" +
+        		"<td>" + rowCount + "</td>" +
+        	    "<input type='hidden' name='cateNo' value='" + cateNo + "' />" +
+        	    "<td>" + cateName + "</td>" +
+        	    "<td>7</td>" +
+        	    "<td>" + description + "</td>" +
+        	    "<td class='text-center'><img class='btnCateDel2' data-cateNo='" + cateNo + "' src='${pageContext.request.contextPath}/assets/images/delete.jpg'></td>" +
+        	    "</tr>";
 
-					},
-					error : function(XHR, status, error) {
+        	$("#cateList").append(str);
+        	
+        	$(".btnCateDel2").on("click", function() {
+        	    console.log("삭제 클릭");
 
-						console.error(status + " : " + error);
-					}
-				});
-			}); //$("#btnIdCheck").on
+        	    //추출
+        	    var cateNo = $(this).data("cateno");
+        	    console.log(cateNo);
+
+        	}); //$("#btnCateDel2").on
+        },
+        error: function(XHR, status, error) {
+            console.error(status + " : " + error);
+        }
+    });
+}); //$("#btnAddCate").on
+
+
 </script>
 
 

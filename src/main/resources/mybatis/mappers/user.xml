@@ -4,8 +4,7 @@
 	<!-- 쿼리문 작성 -->
 	<insert id="join" parameterType="com.javaex.vo.UserVo">
 		INSERT INTO USERS (USERNO, ID, USERNAME, PASSWORD, JOINDATE)
-		VALUES (seq_users_no.NEXTVAL, #{id},
-		#{userName}, #{password}, SYSDATE)
+		VALUES (seq_users_no.NEXTVAL, #{id}, #{userName}, #{password}, SYSDATE)
 	</insert>
 	<!--아이디 체크 -->
 	<select id="idCheck" resultType="com.javaex.vo.UserVo">
